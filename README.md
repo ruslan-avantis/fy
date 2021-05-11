@@ -24,15 +24,16 @@
 Create file `fy.js` in local directory or download from the link [fy.js](example/fy.js)
 
 ```js
-/** Fy class
+const axios = require('axios')
+const queryString = require('query-string')
+
+/** Inbox class
  * 
  * @param string $type
  * @param {*} $params
  * @param string $method
  * @returns this
  */
-const axios = require('axios')
-const queryString = require('query-string')
 
 class Fy {
 
@@ -47,23 +48,29 @@ class Fy {
         this.instance = axios.create(this.setings)
     }
 
-    run(type = 'validate', request = 'ping', params = {}, method = 'POST') {
+    async run(type = 'validate', request = 'ping', params = {}, method = 'POST') {
 
-        let fy = {'data': {}}
+        let inbox = {'data': {}}
 
         try {
-
+            
             const url = `/${type}?request=${request}`
 
             if (method == 'GET') {
                 let query = ''
-                if (params) query = '&'+queryString(params)
-                fy = this.instance.get(`${url}${query}`)
+                if (params) query = '&'+queryString.stringify(params)
+
+                console.log('GET: ', `${url}${query}`)
+
+                inbox = await this.instance.get(`${url}${query}`)
             } else {
-                fy = this.instance.post(url, params)
+
+                console.log('POST: ', url, 'params', params)
+
+                inbox = await this.instance.post(url, params)
             }
 
-            /** fy.data = {
+            /** inbox.data = {
             "code": 200,
             "message": "OK",
             "request": "ping",
@@ -75,15 +82,14 @@ class Fy {
             "return": true // true|false
             } */
 
-            console.log('fy.data', fy.data)
+            //console.log('inbox', inbox.data)
 
         } catch (error) {
             console.error(error)
         }
-
-        return fy.data.return ? fy.data.return : null
+        return inbox.data.return ? inbox.data.return : null
         // or return object data
-        // return fy.data
+        // return inbox.data
     }
     
     static validate(request, params, method = 'POST', setings = {}) {
