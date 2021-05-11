@@ -1,33 +1,24 @@
 {
-  "name": "inbox_ua",
-  "version": "0.1.1",
+  "name": "fy",
+  "version": "1.0.1",
   "description": "Validate Servise",
-  "author": "Ruslan Avantis <ruslan.avantis@gmail.com> (https://avantis.com.ua)",
+  "author": "Ruslan Avantis <ruslan.avantis@gmail.com> (https://fy.com.ua)",
   "keywords": [
     "nodejs",
-    "express",
-    "mongodb",
-    "mongoose"
+    "express"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/InboxUA/validate"
+    "url": "https://github.com/ruslan-avantis/fy"
   },
-  "main": "./index",
+  "main": "./fy",
   "scripts": {
-    "start": "node ./index NODE_ENV=production",
-    "dev": "node ./index NODE_ENV=development"
+    "start": "node ./fy NODE_ENV=production",
+    "dev": "node ./fy NODE_ENV=development"
   },
   "license": "ISC",
   "dependencies": {
-    "dateformat": "^4.5.1",
-    "dotenv-safe": "^8.2.0",
-    "express": "^4.17.1",
-    "loader": "^2.1.1",
-    "npm": "^7.11.2",
-    "pm2": "^4.1.2",
-    "twig": "^1.15.4",
-    "uuid": "^3.4.0",
-    "validator": "^13.6.0"
+    "axios": "^0.21.1",
+    "query-string": "^7.0.0"
   }
 }
