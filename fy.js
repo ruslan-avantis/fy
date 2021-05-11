@@ -22,20 +22,26 @@ class Fy {
         this.instance = axios.create(this.setings)
     }
 
-    run(type = 'validate', request = 'ping', params = {}, method = 'POST') {
+    async run(type = 'validate', request = 'ping', params = {}, method = 'POST') {
 
         let inbox = {'data': {}}
 
         try {
-
+            
             const url = `/${type}?request=${request}`
 
             if (method == 'GET') {
                 let query = ''
-                if (params) query = '&'+queryString(params)
-                inbox = this.instance.get(`${url}${query}`)
+                if (params) query = '&'+queryString.stringify(params)
+
+                console.log('GET: ', `${url}${query}`)
+
+                inbox = await this.instance.get(`${url}${query}`)
             } else {
-                inbox = this.instance.post(url, params)
+
+                console.log('POST: ', url, 'params', params)
+
+                inbox = await this.instance.post(url, params)
             }
 
             /** inbox.data = {
@@ -50,12 +56,11 @@ class Fy {
             "return": true // true|false
             } */
 
-            console.log('inbox.data', inbox.data)
+            //console.log('inbox', inbox.data)
 
         } catch (error) {
             console.error(error)
         }
-
         return inbox.data.return ? inbox.data.return : null
         // or return object data
         // return inbox.data

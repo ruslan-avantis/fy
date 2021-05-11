@@ -6,7 +6,6 @@
 
 # production
 /build
-/test
 /demo
 
 # misc

@@ -166,13 +166,13 @@ fy.validate('float', '10.01')
 fy.validate('ip', '192.168.1.0)', {version: 4}) // version 4 or 6
 
 // Random
-fy.random('word') // random word
-fy.random('words', {words: 2, lang: 'en|ru|it'}) // two random words
-fy.random('string', {i: 36, n: 7}) // sdfdghtrh
+fy.random('words') // random word
+fy.random('words', {num: 2, lang: 'en|ru|it'}) // two random words
+fy.random('string', {i: 36, n: 7, lang: 'en|ru'}) // sdfdghtrh
 fy.random('integer', {min: 0, max: 99999}) // 2345
 fy.random('float', {min: 0, max: 99999, fraction: 2}) // 153.54
 fy.random('ip') // random ip version: 4
-fy.random('ip', {version: '6'}) // random ip version: 6
+//fy.random('ip', {version: '6'}) // random ip version: 6
 fy.random('firstName') //
 fy.random('lastName', {lang: 'en|ru|it', gender: 'male|female'}) // gender:male|female
 
@@ -181,4 +181,3 @@ fy.crypt('encrypt', { encrypt: encrypt_string, public_key })
 fy.crypt('decrypt', { decrypt: to_decrypt_string, private_key })
 
 ```
-
