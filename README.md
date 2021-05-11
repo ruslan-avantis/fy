@@ -2,7 +2,7 @@
 
 ## :rocket: Simple Usage
 
-`GET` `https://inbox.com.ua/validate?request=isEmail&value=foo@bar.com`
+`GET` `https://fy.com.ua/validate?request=isEmail&value=foo@bar.com`
 
 ```js
 // return
@@ -24,7 +24,7 @@
 Create file `fy.js` in local directory or download from the link [fy.js](example/fy.js)
 
 ```js
-/** Inbox class
+/** Fy class
  * 
  * @param string $type
  * @param {*} $params
@@ -49,7 +49,7 @@ class Fy {
 
     run(type = 'validate', request = 'ping', params = {}, method = 'POST') {
 
-        let inbox = {'data': {}}
+        let fy = {'data': {}}
 
         try {
 
@@ -58,12 +58,12 @@ class Fy {
             if (method == 'GET') {
                 let query = ''
                 if (params) query = '&'+queryString(params)
-                inbox = this.instance.get(`${url}${query}`)
+                fy = this.instance.get(`${url}${query}`)
             } else {
-                inbox = this.instance.post(url, params)
+                fy = this.instance.post(url, params)
             }
 
-            /** inbox.data = {
+            /** fy.data = {
             "code": 200,
             "message": "OK",
             "request": "ping",
@@ -75,15 +75,15 @@ class Fy {
             "return": true // true|false
             } */
 
-            console.log('inbox.data', inbox.data)
+            console.log('fy.data', fy.data)
 
         } catch (error) {
             console.error(error)
         }
 
-        return inbox.data.return ? inbox.data.return : null
+        return fy.data.return ? fy.data.return : null
         // or return object data
-        // return inbox.data
+        // return fy.data
     }
     
     static validate(request, params, method = 'POST', setings = {}) {
