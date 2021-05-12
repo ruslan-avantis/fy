@@ -1,4 +1,4 @@
-# FY API `Validate` `Random` `Generate` `Crypt`
+# FY:API `Validate` and `Generate` online
 
 ## :rocket: Simple Usage
 
