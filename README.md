@@ -21,7 +21,7 @@
 
 ### JavaScript example
 
-Download from the link [fy.js](example/fy.js)
+Download from the link [fy.js](./fy.js)
 
 ### Use `fy.js`
 
