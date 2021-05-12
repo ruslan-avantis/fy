@@ -134,7 +134,7 @@ if (fy.validate('email', {value: 'foo@bar.com'}, 'GET') === true) {
 }
 
 // or create (n) random users
-const randomCreate = async (n) => {
+const randomItem = async (n) => {
 
     let i = 0, resp = []
 
@@ -164,13 +164,14 @@ const randomCreate = async (n) => {
         obj.validate.city = await fy.validate('city', obj.city, {country: obj.country})
 
         resp.push(obj)
+
         i++
     }
     console.log('random users --> ', resp)
     return resp
 }
 
-randomCreate(2)
+randomItem(2)
 
 ```
 
@@ -190,7 +191,7 @@ fy.validate('city', {value: 'Kiev', country : 'Ukraine'})
 // Random
 fy.random('word') // random word
 fy.random('words', {num: 2, lang: 'en'}) // two random words en|ru|it
-fy.random('string', {i: 36, n: 7, lang: 'en'}) // sdfdghtrh en|ru
+fy.random('string', {length: 7, lang: 'en'}) // sdfdghtrh en|ru
 fy.random('integer', {min: 0, max: 99999}) // 2345
 fy.random('float', {min: 0, max: 99999, fix: 2}) // 153.54
 fy.random('email', {domain : 'gmail.com'})
