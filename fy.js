@@ -1,7 +1,7 @@
 const axios = require('axios')
 const queryString = require('query-string')
 
-/** Inbox class
+/** fy class
  * 
  * @param string $type
  * @param {*} $params
@@ -14,7 +14,8 @@ class Fy {
     constructor(setings = {}) {
         
         this.setings = {
-            baseURL: 'https://fy.com.ua/api/v1/',
+            //baseURL: 'https://fy.com.ua/api/v1/',
+            baseURL: 'http://localhost:3003/api/v1/',
             headers: {'token': 'demo'}
         }
         if (setings) this.setings = Object.assign(this.setings, setings)
@@ -24,7 +25,7 @@ class Fy {
 
     async run(type = 'validate', request = 'ping', params = {}, method = 'POST') {
 
-        let inbox = {'data': {}}
+        let response = {'data': {}}
 
         try {
             
@@ -34,17 +35,20 @@ class Fy {
                 let query = ''
                 if (params) query = '&'+queryString.stringify(params)
 
-                console.log('GET: ', `${url}${query}`)
+                response = await this.instance.get(`${url}${query}`)
 
-                inbox = await this.instance.get(`${url}${query}`)
+                console.log('GET: ', `${url}${query}`, 'response.data', response.data)
+
             } else {
 
-                console.log('POST: ', url, 'params', params)
+                
 
-                inbox = await this.instance.post(url, params)
+                response = await this.instance.post(url, params)
+
+                console.log('POST: ', url, 'params', params, 'response.data', response.data)
             }
 
-            /** inbox.data = {
+            /** response.data = {
             "code": 200,
             "message": "OK",
             "request": "ping",
@@ -56,37 +60,33 @@ class Fy {
             "return": true // true|false
             } */
 
-            //console.log('inbox', inbox.data)
+            //console.log('response.data', response.data)
 
         } catch (error) {
             console.error(error)
         }
-        return inbox.data.return ? inbox.data.return : null
+        return response.data.return ? response.data.return : null
         // or return object data
-        // return inbox.data
+        // return response.data
     }
     
-    static validate(request, params, method = 'POST', setings = {}) {
-        const fy = new Fy(setings)
+    static validate(request, params, method, setings) {
         if (typeof params == 'string') {
             params = {'value': params}
         }
-        return fy.run('validate', request, params, method)
+        return (new Fy(setings)).run('validate', request, params, method)
     }
 
-    static random(request, params = {}, method = 'POST', setings = {}) {
-        const fy = new Fy(setings)
-        return fy.run('random', request, params, method)
+    static random(request, params, method, setings) {
+        return (new Fy(setings)).run('random', request, params, method)
     }
 
-    static generate(request, params = {}, method = 'POST', setings = {}) {
-        const fy = new Fy(setings)
-        return fy.run('generate', request, params, method)
+    static generate(request, params, method, setings) {
+        return (new Fy(setings)).run('generate', request, params, method)
     }
 
-    static crypt(request, params = {}, method = 'POST', setings = {}) {
-        const fy = new Fy(setings)
-        return fy.run('crypt', request, params, method)
+    static crypt(request, params, method, setings) {
+        return (new Fy(setings)).run('crypt', request, params, method)
     }
 }
 
