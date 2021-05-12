@@ -4,11 +4,11 @@ const fy = require('../fy.js')
 const metatests = require('metatests')
 
 class User {
-  constructor(param = {}) {
-    this.param = param
+  constructor(obj = {}) {
+    this.obj = obj
   }
   save() {
-    return this.param
+    return this.obj
   }
 }
 
@@ -16,8 +16,8 @@ const randomCreate = async (n) => {
   let i = 0, resp = []
   while (i < n) {
       let user = new User({
-          'email': await fy.random('email'),
-          'phone': await fy.random('phone'),
+          'email': await fy.random('email', {domain : 'gmail.com'}),
+          'phone': await fy.random('phone', {locale : 'UA'}),
           'password': await fy.random('password'),
           'currency': await fy.random('currency'),
           'city': await fy.random('city'),
@@ -29,8 +29,11 @@ const randomCreate = async (n) => {
           'ip': await fy.random('ip')
       })
       user.save()
-      resp.push(user)
+      resp.push(user.obj)
+      i++
   }
+  //console.log('randomCreate --> ', resp)
+  return resp
 }
 
 metatests.testAsync('POST: fy/api/validate', async (test) => {

@@ -71,8 +71,12 @@ class Fy {
     }
     
     static validate(request, params, method, setings) {
-        if (typeof params == 'string') {
+        if (typeof params === 'string') {
             params = {'value': params}
+            if (typeof method === 'object') {
+                params = Object.assign(params, method)
+                method = 'POST'
+            }
         }
         return (new Fy(setings)).run('validate', request, params, method)
     }

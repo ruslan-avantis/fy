@@ -95,6 +95,9 @@ class Fy {
     static validate(request, params, method, setings) {
         if (typeof params == 'string') {
             params = {'value': params}
+            if (typeof method == 'object') {
+                params = Object.assign(params, method)
+            }
         }
         return (new Fy(setings)).run('validate', request, params, method)
     }
@@ -132,26 +135,42 @@ if (fy.validate('email', {value: 'foo@bar.com'}, 'GET') === true) {
 
 // or create (n) random users
 const randomCreate = async (n) => {
-    let i = 0
+
+    let i = 0, resp = []
+
     while (i < n) {
-        let user = new User({
-            'email': await fy.random('email'),
-            'phone': await fy.random('phone'),
-            'password': await fy.random('password'),
-            'currency': await fy.random('currency'),
-            'city': await fy.random('city'),
-            'country': await fy.random('country'),
-            'name': await fy.random('firstName'),
-            'last_name': await fy.random('lastName'),
-            'balance': await fy.random('integer', {min: 0, max: 999}),
-            'session_id': await fy.random('sessionId'),
-            'ip': await fy.random('ip')
-        })
-        user.save()
+
+        let obj = {}
+        
+        obj.email = await fy.random('email', {domain : 'gmail.com'})
+        obj.password = await fy.random('password')
+        obj.country = await fy.random('country')
+        obj.city = await fy.random('city', {country : obj.country})
+        obj.phone = await fy.random('phone', {locale : 'UA'})
+        obj.currency = await fy.random('currency')
+        obj.name = await fy.random('firstName', {gender : 'female'})
+        obj.last_name = await fy.random('lastName')
+        obj.balance = await fy.random('integer', {min: 0, max: 999})
+        obj.session_id = await fy.random('sessionId')
+        obj.ip = await fy.random('ip')
+        obj.float = await fy.random('float')
+        
+        obj.validate = {}
+        obj.validate.ip = await fy.validate('ip', obj.ip)
+        obj.validate.email = await fy.validate('email', obj.email)
+        obj.validate.phone = await fy.validate('phone', obj.phone)
+        obj.validate.float = await fy.validate('float', obj.float)
+        obj.validate.country = await fy.validate('country', obj.country)
+        obj.validate.city = await fy.validate('city', obj.city, {country: obj.country})
+
+        resp.push(obj)
+        i++
     }
+    console.log('random users --> ', resp)
+    return resp
 }
 
-randomCreate(10)
+randomCreate(2)
 
 ```
 
@@ -164,22 +183,30 @@ const fy = require('./fy.js')
 fy.validate('email', 'foo@bar.com')
 fy.validate('phone', '+380671234567') // or +38 (067) 123-45-67
 fy.validate('float', '10.01')
-fy.validate('ip', '192.168.1.0)', {version: 4}) // version 4 or 6
+fy.validate('ip', '192.168.1.0', {version: 4}) // version 4 or 6
+fy.validate('country', 'Ukraine')
+fy.validate('city', {value: 'Kiev', country : 'Ukraine'})
 
 // Random
-fy.random('words') // random word
-fy.random('words', {num: 2, lang: 'en|ru|it'}) // two random words
-fy.random('string', {i: 36, n: 7, lang: 'en|ru'}) // sdfdghtrh
+fy.random('word') // random word
+fy.random('words', {num: 2, lang: 'en'}) // two random words en|ru|it
+fy.random('string', {i: 36, n: 7, lang: 'en'}) // sdfdghtrh en|ru
 fy.random('integer', {min: 0, max: 99999}) // 2345
-fy.random('float', {min: 0, max: 99999, fraction: 2}) // 153.54
+fy.random('float', {min: 0, max: 99999, fix: 2}) // 153.54
+fy.random('email', {domain : 'gmail.com'})
+fy.random('password')
+fy.random('country')
+fy.random('city', {country : fy.random('country')})
+fy.random('phone', {locale : 'UA'})
+fy.random('currency')
+fy.random('firstName', {lang: 'en', gender : 'female'}) // gender:male|female
+fy.random('lastName', {lang: 'en'})
+fy.random('sessionId')
 fy.random('ip') // random ip version: 4
 //fy.random('ip', {version: '6'}) // random ip version: 6
-fy.random('email', {domain: 'domain.com'}) // random word
-fy.random('firstName') //
-fy.random('lastName', {lang: 'en|ru|it', gender: 'male|female'}) // gender:male|female
 
 // Crypt
-fy.crypt('encrypt', { encrypt: encrypt_string, public_key })
-fy.crypt('decrypt', { decrypt: to_decrypt_string, private_key })
+//fy.crypt('encrypt', { encrypt: encrypt_string, public_key })
+//fy.crypt('decrypt', { decrypt: to_decrypt_string, private_key })
 
 ```
