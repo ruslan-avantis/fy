@@ -32,21 +32,13 @@ class Fy {
             const url = `/${type}?request=${request}`
 
             if (method == 'GET') {
+                
                 let query = ''
                 if (params) query = '&'+queryString.stringify(params)
 
                 response = await this.instance.get(`${url}${query}`)
 
-                console.log('GET: ', `${url}${query}`, 'response.data', response.data)
-
-            } else {
-
-                
-
-                response = await this.instance.post(url, params)
-
-                console.log('POST: ', url, 'params', params, 'response.data', response.data)
-            }
+            } else response = await this.instance.post(url, params)
 
             /** response.data = {
             "code": 200,
@@ -71,7 +63,6 @@ class Fy {
     }
     
     static validate(request, params, method, setings) {
-        console.log('validate', params)
         if (typeof params === 'string') {
             params = {'value': params}
             if (typeof method === 'object') {
