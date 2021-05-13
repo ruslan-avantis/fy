@@ -2,7 +2,7 @@
 
 ## :rocket: Simple Usage API
 
-`GET` `https://fy.com.ua/validate?request=isEmail&value=foo@bar.com`
+`GET` `https://fy.com.ua/api/v1/validate?request=isEmail&value=foo@bar.com`
 
 ```js
 // return
@@ -39,9 +39,7 @@ if (fy.validate('email', {value: 'foo@bar.com'}, 'GET') === true) {
 }
 
 // or create (n) random users
-const randomItem = async (n) => {
-
-    let i = 0, resp = []
+const randomItem = async (n, i = 0, resp = []) => {
 
     while (i < n) {
 
@@ -103,7 +101,7 @@ fy.random('firstName', {lang: 'en', gender : 'female'}) // gender:male|female
 fy.random('lastName', {lang: 'en'})
 fy.random('uuidv4')
 fy.random('ip') // random ip version: 4
-//fy.random('ip', {version: '6'}) // random ip version: 6
+fy.random('ip', {version: '6'}) // random ip version: 6
 
 // Validate return true|false
 fy.validate('email', 'foo@bar.com')
