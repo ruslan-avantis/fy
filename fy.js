@@ -72,7 +72,6 @@ class Fy {
                 method = 'POST'
             }
         }
-        console.log('validate', request, params, method)
         return (new Fy(setings)).execute('validate', request, params, method)
     }
 
