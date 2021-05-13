@@ -1,4 +1,4 @@
-# FY:API - online `validate` and `random` data generator
+# FY:API `Validate` and `Random Generate` online
 
 ## :rocket: Simple Usage API
 
