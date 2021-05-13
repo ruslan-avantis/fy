@@ -1,6 +1,10 @@
-# FY:API `Validate` and `Random Generate` online
+# FY:API `Validate` and `Random data` online
 
-## :rocket: Simple Usage API
+What FY allows developers to do is avoid having to program any code or setup any local development environments for creating fake test data.
+
+You can quickly create random data, just install and configure the library and get the data through our API when you need it. It's free.
+
+## :rocket: Simple Usage FY:API
 
 `GET` `https://fy.com.ua/api/v1/validate?request=email&value=foo@bar.com`
 
