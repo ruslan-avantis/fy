@@ -14,8 +14,8 @@ class Fy {
     constructor(setings = {}) {
         
         this.setings = {
-            //baseURL: 'https://fy.com.ua/api/v1/',
-            baseURL: 'http://localhost:3003/api/v1/',
+            baseURL: 'https://fy.com.ua/api/v1/',
+            //baseURL: 'http://localhost:3000/api/v1/',
             headers: {'token': 'demo'}
         }
         if (setings) this.setings = Object.assign(this.setings, setings)
