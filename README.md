@@ -6,7 +6,7 @@
 
 The api in the header always returns the code 200
 ```js
-// return
+// Real response code in response body
 {
     "code": 200,
     "message": "OK",
