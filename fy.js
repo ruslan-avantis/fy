@@ -8,7 +8,6 @@ const queryString = require('query-string')
  * @param string $method
  * @returns this
  */
-
 class Fy {
 
     constructor(setings = {}) {
@@ -18,13 +17,16 @@ class Fy {
             //baseURL: 'http://localhost:3000/api/v1/',
             headers: {'token': 'demo'}
         }
-        if (setings) this.setings = Object.assign(this.setings, setings)
+
+        Object.assign(this.setings, setings)
+        Object.freeze(this.setings)
 
         this.instance = axios.create(this.setings)
     }
 
-    async run(type = 'validate', request = 'ping', params = {}, method = 'POST') {
+    async execute(type, request = 'ping', params = {}, method = 'POST') {
 
+        if (!type) return null
         let response = {'data': {}}
 
         try {
@@ -32,7 +34,7 @@ class Fy {
             const url = `/${type}?request=${request}`
 
             if (method == 'GET') {
-                
+
                 let query = ''
                 if (params) query = '&'+queryString.stringify(params)
 
@@ -63,26 +65,27 @@ class Fy {
     }
     
     static validate(request, params, method, setings) {
-        if (typeof params === 'string') {
+        if (typeof params === 'string' || typeof params === 'number') {
             params = {'value': params}
             if (typeof method === 'object') {
-                params = Object.assign(params, method)
+                params = Object.assign({}, params, method)
                 method = 'POST'
             }
         }
-        return (new Fy(setings)).run('validate', request, params, method)
+        console.log('validate', request, params, method)
+        return (new Fy(setings)).execute('validate', request, params, method)
     }
 
     static random(request, params, method, setings) {
-        return (new Fy(setings)).run('random', request, params, method)
+        return (new Fy(setings)).execute('random', request, params, method)
     }
 
     static generate(request, params, method, setings) {
-        return (new Fy(setings)).run('generate', request, params, method)
+        return (new Fy(setings)).execute('generate', request, params, method)
     }
 
     static crypt(request, params, method, setings) {
-        return (new Fy(setings)).run('crypt', request, params, method)
+        return (new Fy(setings)).execute('crypt', request, params, method)
     }
 }
 
