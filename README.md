@@ -2,7 +2,7 @@
 
 ## :rocket: Simple Usage API
 
-`GET` `https://fy.com.ua/api/v1/validate?request=isEmail&value=foo@bar.com`
+`GET` `https://fy.com.ua/api/v1/validate?request=email&value=foo@bar.com`
 
 ```js
 // return
