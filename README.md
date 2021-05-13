@@ -75,6 +75,10 @@ randomItem(2)
 
 ```
 
+## Why use FY?
+
+You *should* use [fy.js](https://github.com/ruslan-avantis/fy)! We use it everyday. It's a great API!
+
 ### All methods
 
 ```js
@@ -109,3 +113,19 @@ fy.validate('country', 'Ukraine')
 fy.validate('city', {value: 'Kiev', country : 'Ukraine'})
 
 ```
+
+## Developer Support
+
+Are you a developer? Have you tried API [https://fy.com.ua](https://fy.com.ua) yet? 
+
+Please let us know how we can make FY a better developer experience for *YOU*.
+
+### Issues and Feature Requests
+
+You can start a conversation on our public Github Issue Tracker: [https://github.com/ruslan-avantis/fy/issues/new](https://github.com/ruslan-avantis/fy/issues/new)
+
+### Contact Support
+
+If you'd like a more private chat, please email our support staff at: [support@fy.com.ua](support@fy.com.ua)
+
+We look forward to hearing from you!
