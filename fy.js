@@ -71,6 +71,7 @@ class Fy {
     }
     
     static validate(request, params, method, setings) {
+        console.log('validate', params)
         if (typeof params === 'string') {
             params = {'value': params}
             if (typeof method === 'object') {

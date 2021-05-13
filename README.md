@@ -1,6 +1,6 @@
-# FY API `Validate` `Random` `Generate` `Crypt`
+# FY:API - online `validate` and `random` data generator
 
-## :rocket: Simple Usage
+## :rocket: Simple Usage API
 
 `GET` `https://fy.com.ua/validate?request=isEmail&value=foo@bar.com`
 
@@ -14,14 +14,14 @@
     "params": {
         "value": "foo@bar.com"
     },
-    "function": "isEmail",
+    "function": "email",
     "return": true
 }
 ```
 
 ### JavaScript example
 
-Download from the link [fy.js](./fy.js)
+Download file from the link [fy.js](./fy.js)
 
 ### Use `fy.js`
 
@@ -80,20 +80,14 @@ randomItem(2)
 
 ```
 
-### All functions
+### All methods
 
 ```js
 const fy = require('./fy.js')
 
-// Validate return true|false
-fy.validate('email', 'foo@bar.com')
-fy.validate('phone', '+380671234567') // or +38 (067) 123-45-67
-fy.validate('float', '10.01')
-fy.validate('ip', '192.168.1.0', {version: 4}) // version 4 or 6
-fy.validate('country', 'Ukraine')
-fy.validate('city', {value: 'Kiev', country : 'Ukraine'})
-
-// Random
+/** Random
+ * 
+*/
 fy.random('word') // random word
 fy.random('words', {num: 2, lang: 'en'}) // two random words en|ru|it
 fy.random('string', {length: 7, lang: 'en'}) // sdfdghtrh en|ru
@@ -107,12 +101,16 @@ fy.random('phone', {locale : 'UA'})
 fy.random('currency')
 fy.random('firstName', {lang: 'en', gender : 'female'}) // gender:male|female
 fy.random('lastName', {lang: 'en'})
-fy.random('sessionId')
+fy.random('uuidv4')
 fy.random('ip') // random ip version: 4
 //fy.random('ip', {version: '6'}) // random ip version: 6
 
-// Crypt
-//fy.crypt('encrypt', { encrypt: encrypt_string, public_key })
-//fy.crypt('decrypt', { decrypt: to_decrypt_string, private_key })
+// Validate return true|false
+fy.validate('email', 'foo@bar.com')
+fy.validate('phone', '+380671234567') // or +38 (067) 123-45-67
+fy.validate('float', '10.01')
+fy.validate('ip', '192.168.1.0', {version: 4}) // version 4 or 6
+fy.validate('country', 'Ukraine')
+fy.validate('city', {value: 'Kiev', country : 'Ukraine'})
 
 ```
