@@ -4,16 +4,13 @@
 
 `GET` `https://fy.com.ua/api/v1/validate?request=email&value=foo@bar.com`
 
+The api in the header always returns the code 200
 ```js
 // return
 {
     "code": 200,
     "message": "OK",
-    "request": "ping",
-    "type": "validate",
-    "params": {
-        "value": "foo@bar.com"
-    },
+    "value": "foo@bar.com",
     "function": "email",
     "return": true
 }
